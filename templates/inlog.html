@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Log In | ShopBuzz</title>
+{% endblock title %}
+
+{% block body %}
+
+<section class="mt-5 pt-5">
+    <div class="container">
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-2">
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="container px-5 py-1">
+                    <div class="alert alert-primary d-flex align-items-center mt-5" role="alert">
+                      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                      <div>
+                        {{message}}
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+              <div class="row justify-content-center py-5">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+  
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Log In</p>
+  
+                  <form class="mx-1 mx-md-4 needs-validation" method="POST" action="/accounts/login/">
+                    {% csrf_token %}
+  
+                    <div class="d-flex flex-row align-items-center mb-2">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-floating mb-3 w-100">
+                        {{form.username}}
+                        <label for="formId1">Username</label>
+                      </div>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+  
+                    <div class="d-flex flex-row align-items-center mb-2">
+                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                      <div class="form-floating mb-3 w-100">
+                        {{form.password}}
+                        <label for="formId3">Password</label>
+                      </div>
+                    </div>
+  
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" class="btn btn-primary btn-lg w-100" style="font-size: 1rem;">Log In</button>
+                    </div>
+  
+                    <p class="w-100 text-center">Don't have an account yet? <a href="/accounts/signup/">Sign Up</a> now.</p>
+                  </form>
+
+  
+                </div>
+                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+  
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                    class="img-fluid" alt="Sample image">
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<script>
+  (() => {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    const forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        if (document.getElementById('formId3').value != document.getElementById('formId4').value) {
+          form.classList.add('was-validated')
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+</script>
+{% endblock body %}
